@@ -147,31 +147,6 @@ ELSE(WIN32)
     ENDIF (NOT ANDROID)
 ENDIF(WIN32)
 
-# These are all the places to search for header files which are
-# to be part of the API.
-SET(API_INCLUDE_DIRS) # start empty
-FOREACH(subdir ${OPENMM_SOURCE_SUBDIRS})
-    # append
-    SET(API_INCLUDE_DIRS ${API_INCLUDE_DIRS}
-                         ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/include
-                         ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/include/openmm
-                         ${CMAKE_CURRENT_SOURCE_DIR}/${subdir}/include/openmm/internal)
-ENDFOREACH(subdir)
-
-# We'll need both *relative* path names, starting with their API_INCLUDE_DIRS,
-# and absolute pathnames.
-SET(API_REL_INCLUDE_FILES)   # start these out empty
-SET(API_ABS_INCLUDE_FILES)
-
-FOREACH(dir ${API_INCLUDE_DIRS})
-    FILE(GLOB fullpaths ${dir}/*.h) # returns full pathnames
-    SET(API_ABS_INCLUDE_FILES ${API_ABS_INCLUDE_FILES} ${fullpaths})
-
-    FOREACH(pathname ${fullpaths})
-        GET_FILENAME_COMPONENT(filename ${pathname} NAME)
-        SET(API_REL_INCLUDE_FILES ${API_REL_INCLUDE_FILES} ${dir}/${filename})
-    ENDFOREACH(pathname)
-ENDFOREACH(dir)
 
 # collect up source files
 SET(SOURCE_FILES) # empty

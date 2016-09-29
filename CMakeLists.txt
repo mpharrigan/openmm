@@ -1,6 +1,8 @@
 # As of 2016-10, cmake version 3.3 is the latest included in conda.
 cmake_minimum_required(VERSION 3.3)
-project(OpenMM)
+project(OpenMM
+        VERSION 7.0.0
+        LANGUAGES CXX)
 
 find_package(PythonInterp)
 mark_as_advanced(CLEAR PYTHON_EXECUTABLE)
@@ -157,19 +159,17 @@ ENDIF (NOT CMAKE_CXX_FLAGS_RELEASE)
 # and make it available to the code so it can be built into the binaries.
 
 SET(OPENMM_LIBRARY_NAME OpenMM)
-SET(OPENMM_MAJOR_VERSION 7)
-SET(OPENMM_MINOR_VERSION 0)
-SET(OPENMM_BUILD_VERSION 0)
 
 SET(OPENMM_COPYRIGHT_YEARS "2008-2015")
 
 # underbar separated list of dotted authors, no spaces or commas
 SET(OPENMM_AUTHORS "Peter.Eastman")
 
+# TODO: Change this to configure_file.
 ADD_DEFINITIONS(-DOPENMM_LIBRARY_NAME=${OPENMM_LIBRARY_NAME}
-                -DOPENMM_MAJOR_VERSION=${OPENMM_MAJOR_VERSION}
-                -DOPENMM_MINOR_VERSION=${OPENMM_MINOR_VERSION}
-                -DOPENMM_BUILD_VERSION=${OPENMM_BUILD_VERSION})
+                -DOPENMM_MAJOR_VERSION=${OPENMM_VERSION_MAJOR}
+                -DOPENMM_MINOR_VERSION=${OPENMM_VERSION_MINOR}
+                -DOPENMM_BUILD_VERSION=${OPENMM_VERSION_PATCH})
 
 # CMake quotes automatically when building Visual Studio projects but we need
 # to add them ourselves for Linux or Cygwin. Two cases to avoid duplicate quotes

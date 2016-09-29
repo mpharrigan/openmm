@@ -14,8 +14,8 @@ master_doc = 'index'
 project = u'OpenMM'
 copyright = u'2015, Stanford University and the Authors'
 
-version = '@OPENMM_MAJOR_VERSION@.@OPENMM_MINOR_VERSION@'
-release = '@OPENMM_MAJOR_VERSION@.@OPENMM_MINOR_VERSION@'
+version = '@OPENMM_VERSION_MAJOR@.@OPENMM_VERSION_MINOR@'
+release = '@OPENMM_VERSION_MAJOR@.@OPENMM_VERSION_MINOR@.@OPENMM_VERSION_TWEAK@'
 
 exclude_patterns = ['_build', '_templates']
 html_static_path = ['_static']

@@ -1,25 +1,8 @@
-#---------------------------------------------------
-# OpenMM
-#
-# Creates OpenMM library.
-#
-# Windows:
-#   OpenMM.dll
-#   OpenMM.lib
-#   OpenMM_static.lib
-# Unix:
-#   libOpenMM.so
-#   libOpenMM_static.a
-#----------------------------------------------------
+PROJECT (OpenMM)
 
 find_package(PythonInterp)
 mark_as_advanced(CLEAR PYTHON_EXECUTABLE)
 
-# Don't create a new project name if this is part of a mega-build from the
-# parent directory
-IF( NOT PROJECT_NAME )
-    PROJECT (OpenMM)
-ENDIF( NOT PROJECT_NAME )
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 if("${CMAKE_VERSION}" VERSION_GREATER "3.0" OR "${CMAKE_VERSION}" VERSION_EQUAL "3.0")

@@ -12,13 +12,6 @@ cmake_policy(SET CMP0042 OLD)
 find_package(PythonInterp)
 mark_as_advanced(CLEAR PYTHON_EXECUTABLE)
 
-# CMake 2.4 on dart server only needs to know about Dart
-INCLUDE(Dart)
-MARK_AS_ADVANCED(DART_ROOT)
-
-# Avoid dart server problem with cmake 2.4 --cmb
-set(cmv "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}")
-IF(NOT cmv EQUAL "2.4") # This whole file...
 
 # We have custom cmake modules for FindOpenMM and running python tests
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
@@ -504,13 +497,6 @@ IF(OPENMM_BUILD_PYTHON_WRAPPERS)
 ENDIF(OPENMM_BUILD_PYTHON_WRAPPERS)
 
 
-
-
-#
-# Allow automated build and dashboard.
-#
-# redundant INCLUDE(Dart) statement
-# INCLUDE (Dart)
 
 #IF (UNIX AND NOT CYGWIN AND NOT APPLE)
 #  IF (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE MATCHES Debug)

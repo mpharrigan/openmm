@@ -127,12 +127,6 @@ ADD_DEFINITIONS(-DOPENMM_COPYRIGHT_YEARS="${OPENMM_COPYRIGHT_YEARS}"
 # -DOPENMM_TYPE has to be defined in the target subdirectories.
 # -Dsimbody_EXPORTS defined automatically when Windows DLL build is being done.
 
-# Report the version number to the CMake UI
-SET(OPENMM_VERSION
-    "${OPENMM_MAJOR_VERSION}.${OPENMM_MINOR_VERSION}.${OPENMM_BUILD_VERSION}"
-     CACHE STRING "This is the version of OpenMM which will be built." FORCE)
-# We don't actually use this version for anything yet
-MARK_AS_ADVANCED(OPENMM_VERSION)
 
 SET(SHARED_TARGET ${OPENMM_LIBRARY_NAME})
 SET(STATIC_TARGET ${OPENMM_LIBRARY_NAME}_static)

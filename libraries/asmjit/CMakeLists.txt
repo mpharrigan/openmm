@@ -23,7 +23,7 @@ set(asmjit_base_SOURCE_FILES
         base/zone.cpp
         )
 
-set(asmjir_x86_SOURCE_FILES
+set(asmjit_x86_SOURCE_FILES
         x86/x86assembler.cpp
         x86/x86compiler.cpp
         x86/x86context.cpp

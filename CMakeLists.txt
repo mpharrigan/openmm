@@ -133,9 +133,6 @@ SET(OPENMM_SOURCE_SUBDIRS
         libraries/lepton
         libraries/sfmt
         libraries/lbfgs
-        libraries/hilbert
-        libraries/csha1
-        libraries/irrxml
         libraries/vecmath)
 IF(WIN32)
     SET(OPENMM_SOURCE_SUBDIRS ${OPENMM_SOURCE_SUBDIRS} libraries/pthreads)
@@ -151,6 +148,9 @@ if(NOT (ANDROID OR PNACL))
     add_subdirectory(libraries/asmjit)
     set(EXTRA_COMPILE_FLAGS "${EXTRA_COMPILE_FLAGS} -DLEPTON_USE_JIT") #TODO: better way of doing this?
 endif()
+add_subdirectory(libraries/csha1)
+add_subdirectory(libraries/hilbert)
+add_subdirectory(libraries/irrxml)
 
 # collect up source files
 SET(SOURCE_FILES) # empty

@@ -12,10 +12,7 @@ cmake_policy(SET CMP0042 OLD)
 find_package(PythonInterp)
 mark_as_advanced(CLEAR PYTHON_EXECUTABLE)
 
-
-# We have custom cmake modules for FindOpenMM and running python tests
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
-
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
 
 # Where to install
 IF(WIN32)

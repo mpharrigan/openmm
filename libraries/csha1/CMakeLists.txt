@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.3)
 project(csha1
-        VERSION 0.0
+        VERSION 2.1
         LANGUAGES CXX)
 
 add_library(csha1 src/SHA1.cpp)

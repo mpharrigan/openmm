@@ -123,9 +123,6 @@ SET(OPENMM_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 # The source is organized into subdirectories, but we handle them all from
 # this CMakeLists file rather than letting CMake visit them as SUBDIRS.
 SET(OPENMM_SOURCE_SUBDIRS
-        .
-        openmmapi
-        olla
         serialization
         platforms/reference
         libraries/jama
@@ -151,6 +148,36 @@ endif()
 add_subdirectory(libraries/csha1)
 add_subdirectory(libraries/hilbert)
 add_subdirectory(libraries/irrxml)
+
+file(GLOB OpenMM_openmmapi_SOURCE_FILES openmmapi/src/*.cpp)
+file(GLOB OpenMM_olla_SOURCE_FILES olla/src/*.cpp)
+add_library(OpenMM SHARED ${OpenMM_openmmapi_SOURCE_FILES} ${OpenMM_olla_SOURCE_FILES})
+target_include_directories(OpenMM
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/openmmapi/include>
+        $<INSTALL_INTERFACE:include>
+        PRIVATE
+        olla/include
+        )
+
+target_link_libraries(OpenMM
+        csha1
+        hilbert
+        irrxml)
+if(NOT (ANDROID OR PNACL))
+    target_link_libraries(asmjit)
+endif()
+
+install(TARGETS OpenMM EXPORT OpenMMConfig
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin
+        )
+install(DIRECTORY openmmapi/include DESTINATION include)
+install(EXPORT OpenMMConfig DESTINATION share/OpenMM/cmake)
+export(TARGETS OpenMM FILE OpenMMConfig.cmake)
+
+if(FALSE)
 
 # collect up source files
 SET(SOURCE_FILES) # empty
@@ -448,3 +475,4 @@ IF(OPENMM_BUILD_EXAMPLES)
   ADD_SUBDIRECTORY(examples)
 ENDIF(OPENMM_BUILD_EXAMPLES)
 
+endif(FALSE)

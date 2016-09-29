@@ -8,7 +8,7 @@ find_package(PythonInterp)
 mark_as_advanced(CLEAR PYTHON_EXECUTABLE)
 
 
-if("${CMAKE_VERSION}" VERSION_GREATER "3.0" OR "${CMAKE_VERSION}" VERSION_EQUAL "3.0")
+if(POLICY CMP0042)
     CMAKE_POLICY(SET CMP0042 OLD)
 endif()
 
@@ -25,20 +25,15 @@ IF(NOT cmv EQUAL "2.4") # This whole file...
 # We have custom cmake modules for FindOpenMM and running python tests
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
 
-# Older cmake versions do not have cmake_policy command
-# Cmake 2.4.5, the default cmake on red hat linux, has the
-# cmake_policy command, but it does not work
-# "if(POLICY ..." does not work with cmake 2.4.[56] on red hat
-# (cmake 2.4.7 is OK)
-if(COMMAND cmake_policy)
-    if(CMAKE_MAJOR_VERSION GREATER 2 OR CMAKE_MINOR_VERSION GREATER 5)
-        cmake_policy(SET CMP0003 NEW)
-        cmake_policy(SET CMP0005 NEW)
-    endif(CMAKE_MAJOR_VERSION GREATER 2 OR CMAKE_MINOR_VERSION GREATER 5)
-    if(CMAKE_MAJOR_VERSION GREATER 2 OR CMAKE_MINOR_VERSION GREATER 6 OR CMAKE_PATCH_VERSION GREATER 2)
-        cmake_policy(SET CMP0011 NEW)
-    endif(CMAKE_MAJOR_VERSION GREATER 2 OR CMAKE_MINOR_VERSION GREATER 6 OR CMAKE_PATCH_VERSION GREATER 2)
-endif(COMMAND cmake_policy)
+if(POLICY CMP0003)
+    cmake_policy(SET CMP0003 NEW)
+endif()
+if(POLICY CMP0005)
+    cmake_policy(SET CMP0005 NEW)
+endif()
+if(POLICY CMP0011)
+    cmake_policy(SET CMP0011 NEW)
+endif()
 
 # Where to install
 IF(WIN32)

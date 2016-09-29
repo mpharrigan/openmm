@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.5)
+# As of 2016-10, cmake version 3.3 is the latest included in conda.
+cmake_minimum_required(VERSION 3.3)
 project(OpenMM)
 
 find_package(PythonInterp)

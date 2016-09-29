@@ -48,58 +48,60 @@ ELSE(WIN32)
 ENDIF(WIN32)
 
 
-IF (APPLE AND (NOT PNACL))
+IF(APPLE AND (NOT PNACL))
     # Build 64 bit binaries compatible with OS X 10.7
-    IF (NOT CMAKE_OSX_DEPLOYMENT_TARGET)
-        SET (CMAKE_OSX_DEPLOYMENT_TARGET "10.7" CACHE STRING "The minimum version of OS X to support" FORCE)
-    ENDIF (NOT CMAKE_OSX_DEPLOYMENT_TARGET)
-    IF (NOT CMAKE_OSX_ARCHITECTURES)
-        SET (CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "The processor architectures to build for" FORCE)
-    ENDIF (NOT CMAKE_OSX_ARCHITECTURES)
-    IF (NOT CMAKE_OSX_SYSROOT)
-        EXECUTE_PROCESS(COMMAND "xcrun" "--show-sdk-path" OUTPUT_VARIABLE XCRUN_OSX_SYSROOT RESULT_VARIABLE XCRUN_OSX_SYSROOT_STATUS OUTPUT_STRIP_TRAILING_WHITESPACE)
-        IF (XCRUN_OSX_SYSROOT_STATUS EQUAL 0)
-            SET (CMAKE_OSX_SYSROOT "${XCRUN_OSX_SYSROOT}" CACHE STRING "SDK Path" FORCE)
-        ENDIF (XCRUN_OSX_SYSROOT_STATUS EQUAL 0)
-        UNSET(XCRUN_OSX_SYSROOT)
-        UNSET(XCRUN_OSX_SYSROOT_STATUS)
-    ENDIF (NOT CMAKE_OSX_SYSROOT)
+    if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+        set(CMAKE_OSX_DEPLOYMENT_TARGET "10.7" CACHE STRING "The minimum version of OS X to support" FORCE)
+    endif()
+    if(NOT CMAKE_OSX_ARCHITECTURES)
+        set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "The processor architectures to build for" FORCE)
+    endif()
+    if(NOT CMAKE_OSX_SYSROOT)
+        execute_process(COMMAND "xcrun" "--show-sdk-path"
+                        OUTPUT_VARIABLE XCRUN_OSX_SYSROOT
+                        RESULT_VARIABLE XCRUN_OSX_SYSROOT_STATUS
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        if(XCRUN_OSX_SYSROOT_STATUS EQUAL 0)
+            set(CMAKE_OSX_SYSROOT "${XCRUN_OSX_SYSROOT}" CACHE STRING "SDK Path" FORCE)
+        endif()
+        unset(XCRUN_OSX_SYSROOT)
+        unset(XCRUN_OSX_SYSROOT_STATUS)
+    endif(NOT CMAKE_OSX_SYSROOT)
 
     # Improve the linking behavior of Mac libraries
-    SET (CMAKE_INSTALL_NAME_DIR "@rpath")
-    SET(EXTRA_COMPILE_FLAGS "-msse2 -stdlib=libc++")
-ELSE (APPLE AND (NOT PNACL))
-    IF (MSVC OR ANDROID OR PNACL)
-        SET(EXTRA_COMPILE_FLAGS)
-        IF (MSVC)
+    set(CMAKE_INSTALL_NAME_DIR "@rpath")
+    set(EXTRA_COMPILE_FLAGS "-msse2 -stdlib=libc++")
+else(APPLE AND (NOT PNACL))
+    if(MSVC OR ANDROID OR PNACL)
+        set(EXTRA_COMPILE_FLAGS)
+        if(MSVC)
             # Use warning level 2, not whatever warning level CMake picked.
-            STRING(REGEX REPLACE "/W[0-4]" "/W2" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+            string(REGEX REPLACE "/W[0-4]" "/W2" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
             # Explicitly suppress warnings 4305 and 4244.
-            SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4305 /wd4244")
-        ENDIF (MSVC)
-    ELSE (MSVC OR ANDROID OR PNACL)
-        SET(EXTRA_COMPILE_FLAGS "-msse2")
-    ENDIF (MSVC OR ANDROID OR PNACL)
-ENDIF (APPLE AND (NOT PNACL))
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4305 /wd4244")
+        endif(MSVC)
+    else(MSVC OR ANDROID OR PNACL)
+        set(EXTRA_COMPILE_FLAGS "-msse2")
+    endif(MSVC OR ANDROID OR PNACL)
+endif(APPLE AND (NOT PNACL))
 
-IF(UNIX AND NOT CMAKE_BUILD_TYPE)
-    SET(CMAKE_BUILD_TYPE Release CACHE STRING "Debug or Release build" FORCE)
-ENDIF (UNIX AND NOT CMAKE_BUILD_TYPE)
+if(UNIX AND NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Debug or Release build" FORCE)
+endif(UNIX AND NOT CMAKE_BUILD_TYPE)
 
-IF (NOT CMAKE_CXX_FLAGS_DEBUG)
-    SET(CMAKE_CXX_FLAGS_DEBUG "-g" CACHE STRING "To use when CMAKE_BUILD_TYPE=Debug" FORCE)
-ENDIF (NOT CMAKE_CXX_FLAGS_DEBUG)
+if(NOT CMAKE_CXX_FLAGS_DEBUG)
+    set(CMAKE_CXX_FLAGS_DEBUG "-g" CACHE STRING "To use when CMAKE_BUILD_TYPE=Debug" FORCE)
+endif(NOT CMAKE_CXX_FLAGS_DEBUG)
 
-IF (NOT CMAKE_CXX_FLAGS_RELEASE)
-    IF (ANDROID)
-        SET(CMAKE_CXX_FLAGS_RELEASE "-mfloat-abi=softfp -march=armv7-a -mfpu=neon -funsafe-math-optimizations -O3 -DNDEBUG" CACHE STRING
-        "To use when CMAKE_BUILD_TYPE=Release" FORCE)
-    ELSE (ANDROID)
-        SET(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG" CACHE STRING
-        "To use when CMAKE_BUILD_TYPE=Release" FORCE)
-    ENDIF (ANDROID)
-ENDIF (NOT CMAKE_CXX_FLAGS_RELEASE)
-
+if(NOT CMAKE_CXX_FLAGS_RELEASE)
+    if(ANDROID)
+        set(CMAKE_CXX_FLAGS_RELEASE "-mfloat-abi=softfp -march=armv7-a -mfpu=neon -funsafe-math-optimizations -O3 -DNDEBUG"
+            CACHE STRING "To use when CMAKE_BUILD_TYPE=Release" FORCE)
+    else(ANDROID)
+        set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG"
+            CACHE STRING "To use when CMAKE_BUILD_TYPE=Release" FORCE)
+    endif(ANDROID)
+endif(NOT CMAKE_CXX_FLAGS_RELEASE)
 
 
 # Collect up information about the version of the OpenMM library we're building

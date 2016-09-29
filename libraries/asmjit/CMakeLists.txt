@@ -39,8 +39,6 @@ target_include_directories(asmjit
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
         $<INSTALL_INTERFACE:include>
-        PRIVATE
-        base/ x86/
         )
 
 install(TARGETS asmjit EXPORT asmjitConfig

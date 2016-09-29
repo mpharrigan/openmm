@@ -1,5 +1,5 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
-PROJECT(OpenMM)
+cmake_minimum_required(VERSION 3.5)
+project(OpenMM)
 
 find_package(PythonInterp)
 mark_as_advanced(CLEAR PYTHON_EXECUTABLE)

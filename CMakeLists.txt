@@ -4,11 +4,14 @@ project(OpenMM
         VERSION 7.0.0
         LANGUAGES CXX)
 
+cmake_policy(SET CMP0003 NEW)
+cmake_policy(SET CMP0005 NEW)
+cmake_policy(SET CMP0011 NEW)
+cmake_policy(SET CMP0042 OLD)
+
 find_package(PythonInterp)
 mark_as_advanced(CLEAR PYTHON_EXECUTABLE)
 
-
-CMAKE_POLICY(SET CMP0042 OLD)
 
 #SET(CMAKE_VERBOSE_MAKEFILE 1)
 
@@ -23,9 +26,6 @@ IF(NOT cmv EQUAL "2.4") # This whole file...
 # We have custom cmake modules for FindOpenMM and running python tests
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
 
-cmake_policy(SET CMP0003 NEW)
-cmake_policy(SET CMP0005 NEW)
-cmake_policy(SET CMP0011 NEW)
 
 # Where to install
 IF(WIN32)

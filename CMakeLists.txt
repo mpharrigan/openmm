@@ -30,12 +30,6 @@ IF (ANDROID)
     INCLUDE_DIRECTORIES(${ANDROID_NDK}/sources/cpufeatures)
 ENDIF (ANDROID)
 
-# It seems that on linux and mac, everything is trying to be installed in /usr/local/openmm
-# But if every install target is prefixed with /openmm/, on Windows the install files
-# end up in C:/Program Files/OpenMM/openmm/ which is ugly.
-# Better to set CMAKE_INSTALL_PREFIX to /usr/local/openmm and leave /openmm/ off the
-# install target names.  Plus, the user now has the opportunity to install into /usr/local/
-# if she so chooses.  --cmb
 IF(${CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT})
   SET(CMAKE_INSTALL_PREFIX ${OPENMM_INSTALL_PREFIX} CACHE PATH "Where to install OpenMM" FORCE)
 ENDIF(${CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT})

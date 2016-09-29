@@ -26,9 +26,7 @@ IF(NOT cmv EQUAL "2.4") # This whole file...
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
 
 cmake_policy(SET CMP0003 NEW)
-if(POLICY CMP0005)
-    cmake_policy(SET CMP0005 NEW)
-endif()
+cmake_policy(SET CMP0005 NEW)
 if(POLICY CMP0011)
     cmake_policy(SET CMP0011 NEW)
 endif()

@@ -122,7 +122,21 @@ SET(OPENMM_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 # The source is organized into subdirectories, but we handle them all from
 # this CMakeLists file rather than letting CMake visit them as SUBDIRS.
-SET(OPENMM_SOURCE_SUBDIRS . openmmapi olla libraries/jama libraries/quern libraries/lepton libraries/sfmt libraries/lbfgs libraries/hilbert libraries/csha1 platforms/reference serialization libraries/irrxml libraries/vecmath)
+SET(OPENMM_SOURCE_SUBDIRS
+        .
+        openmmapi
+        olla
+        serialization
+        platforms/reference
+        libraries/jama
+        libraries/quern
+        libraries/lepton
+        libraries/sfmt
+        libraries/lbfgs
+        libraries/hilbert
+        libraries/csha1
+        libraries/irrxml
+        libraries/vecmath)
 IF(WIN32)
     SET(OPENMM_SOURCE_SUBDIRS ${OPENMM_SOURCE_SUBDIRS} libraries/pthreads)
 ELSE(WIN32)

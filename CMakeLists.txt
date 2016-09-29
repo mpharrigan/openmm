@@ -120,26 +120,9 @@ ADD_DEFINITIONS(-DOPENMM_LIBRARY_NAME=${OPENMM_LIBRARY_NAME}
                 -DOPENMM_MINOR_VERSION=${OPENMM_VERSION_MINOR}
                 -DOPENMM_BUILD_VERSION=${OPENMM_VERSION_PATCH})
 
-# CMake quotes automatically when building Visual Studio projects but we need
-# to add them ourselves for Linux or Cygwin. Two cases to avoid duplicate quotes
-# in Visual Studio which end up in the binary.
 
-IF (MSVC)
-   SET(NEED_QUOTES FALSE)
-ELSE (MSVC)
-   SET(NEED_QUOTES TRUE)
-ENDIF (MSVC)
-
-##TODO: doesn't work without quotes in nightly build
-SET(NEED_QUOTES TRUE)
-
-IF(NEED_QUOTES)
-   ADD_DEFINITIONS(-DOPENMM_COPYRIGHT_YEARS="${OPENMM_COPYRIGHT_YEARS}"
-                   -DOPENMM_AUTHORS="${OPENMM_AUTHORS}")
-ELSE(NEED_QUOTES)
-   ADD_DEFINITIONS(-DOPENMM_COPYRIGHT_YEARS=${OPENMM_COPYRIGHT_YEARS}
-                   -DOPENMM_AUTHORS=${OPENMM_AUTHORS})
-ENDIF(NEED_QUOTES)
+ADD_DEFINITIONS(-DOPENMM_COPYRIGHT_YEARS="${OPENMM_COPYRIGHT_YEARS}"
+                -DOPENMM_AUTHORS="${OPENMM_AUTHORS}")
 
 # -DOPENMM_TYPE has to be defined in the target subdirectories.
 # -Dsimbody_EXPORTS defined automatically when Windows DLL build is being done.
